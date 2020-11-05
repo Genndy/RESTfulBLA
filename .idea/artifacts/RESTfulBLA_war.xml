@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="RESTfulBLA:war">
+    <output-path>$PROJECT_DIR$/RESTBLA/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>RESTfulBLA</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="RESTBLA.war">
+      <element id="artifact" artifact-name="RESTfulBLA:war exploded" />
+    </root>
+  </artifact>
+</component>
