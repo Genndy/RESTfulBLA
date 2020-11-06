@@ -1,10 +1,12 @@
 package ru.genndy.restbla.dao;
 
+import org.springframework.stereotype.Component;
 import ru.genndy.restbla.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class PersonDAO {
     private static int STATICID;
     // PersonDAO позволяет крыть собою основные модели от представления
@@ -17,19 +19,27 @@ public class PersonDAO {
         people.add(new Person(++STATICID, "Richard"));
     }
 
-    public Person getByIndex(int i){
-        return people.get(i);
+    public Person getByIndex(int id){
+        return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
     public List<Person> getAll(){ //
         return people;
     }
-    private void addPerson(){
 
+    public void addPerson(Person person){
+        people.add(new Person(++STATICID, person.getName()));
+        System.out.println("Person has been added: "
+                + people.get(people.size()-1).getName() + " "
+                + people.get(people.size()-1).getId());
     }
-    private void deletePersone(){
-
+    public void delete(int id){
+        System.out.println("Person has been removed");
+        people.remove(id - 1);
     }
-    private void update(){
+    public void update(int id, Person newPerson){
+        // Пока костыльно
+        Person personToBeUpdated = getByIndex(id);
 
+        personToBeUpdated.setName(newPerson.getName());
     }
 }

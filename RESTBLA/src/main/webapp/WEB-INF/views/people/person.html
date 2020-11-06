@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Это тело каждого персонажа в all.html-->
+<a th:text="*{person.name}">Name</a>
+<!--Будет логично если обновление будет тут-->
+<br/>
+<!--В чём разница между action и href?-->
+<a th:href="@{/people/edit/{id}(id=${person.getId()})}">update</a> <!--Потом заменить на симпатичную кнопку-->
+<br/>
+<!-- Кнопка удаления - проблема в том, что DeletRequest не реагирует на href ссылки?-->
+<!--a th:action="@{/people/delete/{id}(id=${person.getId()})}">delete</a -->
+<form th:method="DELETE" th:action="@{/people/delete/{id}(id = ${person.getId()})}">
+    <input type="submit" value="delete"/>
+</form>
+</body>
+</html>
