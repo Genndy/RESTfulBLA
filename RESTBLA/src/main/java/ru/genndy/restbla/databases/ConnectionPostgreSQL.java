@@ -58,7 +58,7 @@ public class ConnectionPostgreSQL {
                 System.out.println(person.getName());
             }
         }
-..
+
     }
 }
 /*
