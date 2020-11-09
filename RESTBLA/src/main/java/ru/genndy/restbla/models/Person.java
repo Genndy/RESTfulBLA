@@ -1,5 +1,10 @@
 package ru.genndy.restbla.models;
 
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Person {
     private int id;
     private String name;
@@ -7,6 +12,10 @@ public class Person {
     public Person(){
 
     }
+
+//    "select * from customers where name = ?", new Object[]{}
+
+
 
     public int getId() {
         return id;
