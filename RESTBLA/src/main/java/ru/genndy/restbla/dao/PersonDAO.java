@@ -1,6 +1,7 @@
 package ru.genndy.restbla.dao;
 
 import org.springframework.stereotype.Component;
+import ru.genndy.restbla.databases.ConnectionPostgreSQL;
 import ru.genndy.restbla.models.Person;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class PersonDAO {
         people.add(new Person(++STATICID, "Brietney"));
         people.add(new Person(++STATICID, "John"));
         people.add(new Person(++STATICID, "Richard"));
+
+        ConnectionPostgreSQL conn = new ConnectionPostgreSQL();
     }
 
     public Person getByIndex(int id){

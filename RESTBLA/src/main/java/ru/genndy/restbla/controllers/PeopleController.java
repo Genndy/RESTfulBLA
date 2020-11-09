@@ -13,9 +13,9 @@ public class PeopleController {
     //PersonDAO people = new PersonDAO();
     final PersonDAO people;
 
-
-    public PeopleController(PersonDAO people) {
-        this.people = people;
+    @Autowired
+    public PeopleController(PersonDAO persondAO) {
+        this.people = persondAO;
     }
 
     @GetMapping() // Типа по запросу "/people" прилетает

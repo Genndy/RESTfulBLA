@@ -1,5 +1,6 @@
 package ru.genndy.restbla.databases;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -11,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
-@Component
 @Singleton
 public class ConnectionPostgreSQL {
     public ConnectionPostgreSQL() {
@@ -21,22 +20,35 @@ public class ConnectionPostgreSQL {
         dataSource.setDriverClass(org.h2.Driver.class);
         dataSource.setUsername("postgres"); // Потом поменять
 //        dataSource.setUrl("jdbc:h2:mem");
-        dataSource.setUrl("127.0.0.1");
-        dataSource.setPassword("4a7bda"); // Особенно это поменять
+//        dataSource.setUrl("jdbc:h2:127.0.0.1:5432");
+        dataSource.setUrl("postgres://postgres:qwerty@localhost:5432/RestBla");
+        dataSource.setPassword("qwerty"); // Особенно это поменять
+
+        /*
+        postgresql://
+        postgresql://localhost
+        postgresql://localhost:5432
+        postgresql://localhost/mydb
+        postgresql://user@localhost
+        postgresql://user:secret@localhost
+        postgresql://other@localhost/otherdb?connect_timeout=10&application_name=myapp
+        postgresql://localhost/mydb?user=other&password=secret
+        "postgres://YourUserName:YourPassword@YourHost:5432/YourDatabase"
+        * */
 
         JdbcTemplate jdbc = new JdbcTemplate(dataSource);
         // Проверка на наличие базы данных/Инициализация базы данных
-        List<Integer> isTableExist = jdbc.query("IF OBJECT_IDIF EXISTS (SELECT 1 \n" +
+        Boolean isTableExist = jdbc.queryForObject("IF OBJECT_IDIF EXISTS (SELECT 1 \n" +
                 "           FROM INFORMATION_SCHEMA.TABLES \n" +
                 "           WHERE TABLE_TYPE='BASE TABLE' \n" +
                 "           AND TABLE_NAME='PERSONS') \n" +
-                "   SELECT 1 AS res ELSE SELECT 0 AS res;", ResultSet::getInt);
+                "   SELECT true AS res ELSE SELECT false AS res;", ResultSet::getBoolean);
 
-        if (isTableExist.get(0) == 1) {
+        if (isTableExist == true) {
             System.out.println("Table already exist");
         } else {
             System.err.println("Table doesn't exist");
-            System.out.println("Creating tables");
+            System.out.println("Creating table");
             // jdbcTemplate.execute("drop table customers if exists"); // пусть повисит тут
             jdbc.execute("create table PERSONS(" +
                     "id serial, name varchar(255)"); // table создан...
