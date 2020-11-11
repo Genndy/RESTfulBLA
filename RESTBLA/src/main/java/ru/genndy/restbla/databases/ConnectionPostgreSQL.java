@@ -1,3 +1,4 @@
+/*
 package ru.genndy.restbla.databases;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -14,14 +15,18 @@ import java.util.List;
 
 @Singleton
 public class ConnectionPostgreSQL {
+    SimpleDriverDataSource dataSource;
+    JdbcTemplate jdbc;
+    Boolean isTableExist;
     public ConnectionPostgreSQL() {
         System.out.println("Spring достучался досюда таки");
-        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.h2.Driver.class);
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/db");
         dataSource.setUsername("postgres"); // Потом поменять
 //        dataSource.setUrl("jdbc:h2:mem");
-//        dataSource.setUrl("jdbc:h2:127.0.0.1:5432");
-        dataSource.setUrl("postgres://postgres:qwerty@localhost:5432/RestBla");
+
+//        dataSource.setUrl("postgres://postgres:qwerty@localhost:5432/DB");
         dataSource.setPassword("qwerty"); // Особенно это поменять
 
         /*
@@ -34,11 +39,11 @@ public class ConnectionPostgreSQL {
         postgresql://other@localhost/otherdb?connect_timeout=10&application_name=myapp
         postgresql://localhost/mydb?user=other&password=secret
         "postgres://YourUserName:YourPassword@YourHost:5432/YourDatabase"
-        * */
 
-        JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+
+        jdbc = new JdbcTemplate(dataSource);
         // Проверка на наличие базы данных/Инициализация базы данных
-        Boolean isTableExist = jdbc.queryForObject("IF OBJECT_IDIF EXISTS (SELECT 1 \n" +
+        isTableExist = jdbc.queryForObject("IF OBJECT_IDIF EXISTS (SELECT 1 \n" +
                 "           FROM INFORMATION_SCHEMA.TABLES \n" +
                 "           WHERE TABLE_TYPE='BASE TABLE' \n" +
                 "           AND TABLE_NAME='PERSONS') \n" +
@@ -60,12 +65,12 @@ public class ConnectionPostgreSQL {
 
 //            jdbc.update(names = 'Josh':");
             List<Person> personList = jdbc.query("select * from persons where name = ?", new Object[]{"josh"}
-            ,new RowMapper<Person>(){
-                @Override
-                public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Person(rs.getInt("id"), rs.getString("name"));
-                }
-            });
+                    ,new RowMapper<Person>(){
+                        @Override
+                        public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+                            return new Person(rs.getInt("id"), rs.getString("name"));
+                        }
+                    });
             for(Person person : personList){
                 System.out.println(person.getName());
             }
@@ -73,6 +78,5 @@ public class ConnectionPostgreSQL {
 
     }
 }
-/*
         System.out.println("Querying for customer records where
 */

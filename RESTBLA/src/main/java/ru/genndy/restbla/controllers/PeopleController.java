@@ -16,6 +16,7 @@ public class PeopleController {
     @Autowired
     public PeopleController(PersonDAO persondAO) {
         this.people = persondAO;
+        System.out.println("People controller has been created");
     }
 
     @GetMapping() // Типа по запросу "/people" прилетает
@@ -24,6 +25,7 @@ public class PeopleController {
         System.out.println("people showed");
         return "people/all"; // Типа, это представление теперь имеет ту модель...
     }
+
     @GetMapping("/{id}") // пора бы уже запомнить что фигурные скобки означают прилетающий аргумент
     public String getPersonById(@PathVariable("id") int id, Model model){
         model.addAttribute("person", people.getByIndex(id));
@@ -35,7 +37,7 @@ public class PeopleController {
         return "people/edit";
     }
 
-    // А вот че было сделано на трезвую голову и работает. Ведь в отладчике мозиллы можно увидеть, что передается name и _method=PATCH
+
     @PatchMapping("/update/{id}")
     public String patch(@RequestParam(name = "name", required = false) String name, @PathVariable("id") int id) {
         Person p = new Person(id, name);

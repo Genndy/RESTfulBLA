@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS customer;
+
+CREATE TABLE  person (
+  CUST_ID Bigserial  PRIMARY KEY NOT NULL,
+  NAME varchar(100) NOT NULL,
+);
