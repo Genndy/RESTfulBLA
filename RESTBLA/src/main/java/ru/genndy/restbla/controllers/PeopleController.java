@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.genndy.restbla.dao.PersonDAO;
+import ru.genndy.restbla.dao.PersonDAOImpl;
 import ru.genndy.restbla.models.Person;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
     //PersonDAO people = new PersonDAO();
-    final PersonDAO people;
+    final PersonDAOImpl people;
 
     @Autowired
-    public PeopleController(PersonDAO persondAO) {
+    public PeopleController(PersonDAOImpl persondAO) {
         this.people = persondAO;
         System.out.println("People controller has been created");
     }

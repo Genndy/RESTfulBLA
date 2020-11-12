@@ -1,28 +1,37 @@
-/*
 package ru.genndy.restbla.databases;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ru.genndy.restbla.models.Person;
 
+
+
 import javax.ejb.Singleton;
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Singleton
+
+@Configuration
+@EnableTransactionManagement
 public class ConnectionPostgreSQL {
     SimpleDriverDataSource dataSource;
     JdbcTemplate jdbc;
     Boolean isTableExist;
+
     public ConnectionPostgreSQL() {
         System.out.println("Spring достучался досюда таки");
         dataSource = new SimpleDriverDataSource();
-        dataSource.setDriverClass(org.h2.Driver.class);
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/db");
+        dataSource.setDriverClass(org.postgresql.Driver.class);
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/RestBla");
         dataSource.setUsername("postgres"); // Потом поменять
 //        dataSource.setUrl("jdbc:h2:mem");
 
@@ -39,7 +48,7 @@ public class ConnectionPostgreSQL {
         postgresql://other@localhost/otherdb?connect_timeout=10&application_name=myapp
         postgresql://localhost/mydb?user=other&password=secret
         "postgres://YourUserName:YourPassword@YourHost:5432/YourDatabase"
-
+*/
 
         jdbc = new JdbcTemplate(dataSource);
         // Проверка на наличие базы данных/Инициализация базы данных
@@ -51,7 +60,7 @@ public class ConnectionPostgreSQL {
 
         if (isTableExist == true) {
             System.out.println("Table already exist");
-        } else {
+        } else if(isTableExist == false) {
             System.err.println("Table doesn't exist");
             System.out.println("Creating table");
             // jdbcTemplate.execute("drop table customers if exists"); // пусть повисит тут
@@ -76,7 +85,13 @@ public class ConnectionPostgreSQL {
             }
         }
 
+
     }
+    /*
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource ds) {
+        return new DataSourceTransactionManager(ds);
+    }
+    */
+
 }
-        System.out.println("Querying for customer records where
-*/
