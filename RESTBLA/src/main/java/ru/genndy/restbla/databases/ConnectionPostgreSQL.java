@@ -20,8 +20,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-@Configuration
-@EnableTransactionManagement
+// @Configuration
+// @EnableTransactionManagement
 public class ConnectionPostgreSQL {
     SimpleDriverDataSource dataSource;
     JdbcTemplate jdbc;
@@ -31,12 +31,12 @@ public class ConnectionPostgreSQL {
         System.out.println("Spring достучался досюда таки");
         dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.postgresql.Driver.class);
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/RestBla");
+        dataSource.setUrl("jdbc:postgresql://localhost:52881/db");
         dataSource.setUsername("postgres"); // Потом поменять
+        dataSource.setPassword("qwerty"); // Особенно это поменять
 //        dataSource.setUrl("jdbc:h2:mem");
 
 //        dataSource.setUrl("postgres://postgres:qwerty@localhost:5432/DB");
-        dataSource.setPassword("qwerty"); // Особенно это поменять
 
         /*
         postgresql://

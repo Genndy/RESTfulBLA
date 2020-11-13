@@ -1,7 +1,7 @@
 package ru.genndy.restbla.models;
 
 public class Person {
-    private int id;
+    private int id; // id потом лучше делать в виде строки
     private String name;
 
     public Person(){
