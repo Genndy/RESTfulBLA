@@ -65,7 +65,7 @@ public class ConnectionPostgreSQL {
             System.out.println("Creating table");
             // jdbcTemplate.execute("drop table customers if exists"); // пусть повисит тут
             jdbc.execute("create table PERSONS(" +
-                    "id serial, name varchar(255)"); // table создан...
+            "id serial, name varchar(255)");
 
             String[] names = "John Woo;Jeff Dean;Josh Bloch;Josh Long".split(";");
 //            for (String fullname : names) {

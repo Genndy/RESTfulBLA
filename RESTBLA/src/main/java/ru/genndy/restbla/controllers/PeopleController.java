@@ -26,11 +26,21 @@ public class PeopleController {
         return "people/all"; // Типа, это представление теперь имеет ту модель...
     }
 
+    /*
     @GetMapping("/{id}") // пора бы уже запомнить что фигурные скобки означают прилетающий аргумент
     public String getPersonById(@PathVariable("id") int id, Model model){
         model.addAttribute("person", people.getByIndex(id));
         return "people/person"; // А вообще, можно было бы в полноценный профиль переделать
     }
+    */
+    @GetMapping("/{id}")
+    public String getPersonById(@PathVariable("id") int id, Model model){
+        model.addAttribute("person", people.getByIndex(id));
+//        return new SpringBootMockServletContext("people/person"); // Это будет работать? 0_0
+        return "people/person";
+    }
+
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model){
         model.addAttribute("person", people.getByIndex(id));
@@ -52,6 +62,7 @@ public class PeopleController {
     public String newPerson(@ModelAttribute("person") Person person){
         return "people/new";
     }
+
     @PostMapping("/new")
     public String addPerson(@ModelAttribute("person") Person person){
         people.addPerson(person);
@@ -63,6 +74,8 @@ public class PeopleController {
         people.delete(id);
         return "redirect:/people";
     }
+
+
 
     // Шо там ещё было? добавление и удаление. Редактирование
 }
