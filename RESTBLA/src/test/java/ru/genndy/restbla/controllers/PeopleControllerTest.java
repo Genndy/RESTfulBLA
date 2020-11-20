@@ -67,7 +67,7 @@ public class PeopleControllerTest {
 
     @Before
     public void setup() {
-        conversionService.addConverter(new BarToFooConverter());
+//        conversionService.addConverter(new BarToFooConverter());
     }
 
     @BeforeAll

@@ -23,7 +23,7 @@ public class PersonDAOImpl implements PersonDao {
         dataSource.setDriverClass(org.postgresql.Driver.class);
         dataSource.setUsername("postgres");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        dataSource.setPassword("qwerty"); // Особенно это поменять
+        dataSource.setPassword("4a7bda"); // Особенно это поменять
 
         System.out.println("PersonDAO has been created");
     //    this.template = template;
