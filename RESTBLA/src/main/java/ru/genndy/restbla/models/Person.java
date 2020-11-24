@@ -1,7 +1,7 @@
 package ru.genndy.restbla.models;
 
 public class Person {
-    private int id; // id потом лучше делать в виде строки
+    private int identity; // id потом лучше делать в виде строки
     private String name;
 
     public Person(){
@@ -9,11 +9,11 @@ public class Person {
     }
 
     public int getId() {
-        return id;
+        return identity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int identity) {
+        this.identity = identity;
     }
 
     public String getName() {
@@ -24,8 +24,8 @@ public class Person {
         this.name = name;
     }
 
-    public Person(int id, String name) {
-        this.id = id;
+    public Person(int identity, String name) {
+        this.identity = identity;
         this.name = name;
     }
 }

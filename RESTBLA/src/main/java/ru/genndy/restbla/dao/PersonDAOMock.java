@@ -13,18 +13,17 @@ import java.util.Map;
 
 @Repository
 @SpringBootConfiguration
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDAOMock implements PersonDAO {
     List<Person> people = new ArrayList<Person>();
     SimpleDriverDataSource dataSource;
     JdbcTemplate template;
     Boolean isTableExist;
 
-    public PersonDAOImpl(){
-        System.out.println("Spring достучался досюда таки");
+    public PersonDAOMock(){
         dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.postgresql.Driver.class);
         dataSource.setUsername("postgres");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/mockDataBase");
         dataSource.setPassword("qwerty"); // Особенно это поменять
 
         System.out.println("PersonDAO has been created");
@@ -33,6 +32,15 @@ public class PersonDAOImpl implements PersonDAO {
         // Инициализация таблицы
         template.execute("CREATE TABLE IF NOT EXISTS public.persons" +
                 " (id serial, name char(255))"); // varchar(255) не позволяет писать кавычки... Ну и ладно. Вроде имена не должны содердать кавычки?
+        // Очистить базу данных
+        template.execute("delete from persons");
+        // Заполняем базу данных mock данными
+        String [] names = {"James", "Adam", "Kira", "Grey", "Another random guy"};
+        // Надо бы научится уже пользоваться мультизапросом...
+        String sqlInsert = "INSERT into persons (id, name) values (";
+        for (int i = 1; i < (names.length); i++ ){
+            template.execute(sqlInsert + i +", \'" + names[i] +"\')");
+        }
     }
 
     public Person getByIndex(int id){
@@ -79,21 +87,7 @@ public class PersonDAOImpl implements PersonDAO {
         Person personToBeUpdated = getByIndex(id);
         template.execute(sql);
         personToBeUpdated.setName(newPerson.getName());
-        /*
-
-
-         */
-
     }
-    /*
-    @Override
-    protected JdbcTemplate createJdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
-    @Override
-    protected void initTemplateConfig() {
-    }
-    */
 
     private int getUnicIdForPerson(){
         int newId = (int) ((Math.random() * (10000-0)) + 0);

@@ -1,21 +1,38 @@
 package ru.genndy.restbla.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.genndy.restbla.dao.PersonDAOImpl;
+import ru.genndy.restbla.dao.PersonDAOMock;
+import ru.genndy.restbla.dao.interfaces.PersonDAO;
 import ru.genndy.restbla.models.Person;
 
+import javax.ejb.Singleton;
+
+@Singleton
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
     //PersonDAO people = new PersonDAO();
-    final PersonDAOImpl people;
 
-    @Autowired
-    public PeopleController(PersonDAOImpl persondAO) {
-        this.people = persondAO;
+    PersonDAO people; // по идее он должен быть final ради безопасности, но пожертвуем этим
+
+//    @Autowired // мешает
+    public PeopleController(){
+        people = new PersonDAOMock();
+    }
+
+    public void setPersonDAO(PersonDAO personDAO){
+        this.people = personDAO;
+    }
+
+    public PeopleController(PersonDAO persondDAO) {
+        this.people = persondDAO;
         System.out.println("People controller has been created");
     }
 

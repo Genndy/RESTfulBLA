@@ -9,6 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
+
   <name>RESTBLA Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://localhost</url>
@@ -21,6 +22,7 @@
   </properties>
 
   <dependencies>
+    <!-- Junit Тесты -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -29,20 +31,41 @@
       <scope>test</scope>
     </dependency>
 
-
-    <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
     <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring5</artifactId>
-      <version>3.0.11.RELEASE</version>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>2.45.0</version>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>2.3.5.RELEASE</version>
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>2.3.5.RELEASE</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+
+
+
+
+    <!-- -->
+
+    <!-- Экосистема Spring framework -->
+
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -73,17 +96,16 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <!-- Thymeleaf -->
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-test &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework</groupId>-->
-<!--      <artifactId>spring-test</artifactId>-->
-<!--      <version>5.3.0-RC2</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring5</artifactId>
+      <version>3.0.11.RELEASE</version>
+    </dependency>
 
-
-
+    <!-- Соединение с сервером -->
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -104,45 +126,16 @@
       <artifactId>spring-boot-starter-jdbc</artifactId>
       <version>2.3.5.RELEASE</version>
     </dependency>
-    <!-- -->
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot</artifactId>
-      <version>2.3.6.RELEASE</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>2.4.0</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine -->
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <version>5.7.0</version>
-      <scope>test</scope>
-    </dependency>
-
-
-
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-test</artifactId>
-      <version>2.3.6.RELEASE</version>
-      <scope>test</scope>
-    </dependency>
-
-
-    <!-- -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
+      <version>2.3.5.RELEASE</version>
       <scope>compile</scope>
     </dependency>
 
@@ -156,6 +149,12 @@
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>

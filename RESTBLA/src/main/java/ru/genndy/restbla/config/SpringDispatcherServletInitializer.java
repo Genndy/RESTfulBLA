@@ -2,6 +2,7 @@ package ru.genndy.restbla.config;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import ru.genndy.restbla.SpringConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
